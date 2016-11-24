@@ -21,6 +21,7 @@ import java.io.InputStream;
 public class HomeFragment extends Fragment {
     final String Tag = "Home Fragment ";
     ImageButton imageButtonChooser;
+    ListView listViewHome;
     int PICK_IMAGE = 1;
     @Nullable
     @Override
@@ -34,8 +35,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ListView listViewHome = (ListView) rootView.findViewById(R.id.listView_home);
+        listViewHome = (ListView) rootView.findViewById(R.id.listView_home);
         listViewHome.setAdapter(new HomeAdapter(getActivity(), 3));
+
         return rootView;
     }
 

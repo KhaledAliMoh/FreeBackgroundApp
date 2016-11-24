@@ -11,15 +11,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.khaled.FreeBackgroundApp.LoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.khaled.FreeBackgroundApp.HomeActivity" />
-        <activity android:name="com.example.khaled.FreeBackgroundApp.RegistrationActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".CommentActivity" />
     </application>
 
 </manifest>

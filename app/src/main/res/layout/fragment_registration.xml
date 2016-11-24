@@ -3,52 +3,112 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name: "
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="It is Required! "
+            android:textColor="#ff0000"
+            android:textSize="15dp"
+            android:id="@+id/message_error_user_name"
+            android:visibility="invisible"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:inputType="textPersonName"
+        android:id="@+id/registration_user_name"
         android:background="#FFF"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="E-mail: "
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-mail: "
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invaild Email"
+            android:visibility="invisible"
+            android:textColor="#ff0000"
+            android:layout_marginTop="10dp"
+            android:id="@+id/message_error_email"
+            android:textSize="15dp"/>
+    </LinearLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:inputType="textEmailAddress"
+        android:id="@+id/registration_email"
         android:background="#FFF"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password: "
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password: "
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password is too short, must be more than 6 character"
+            android:visibility="invisible"
+            android:textColor="#ff0000"
+            android:textSize="15dp"
+            android:id="@+id/message_error_password"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:inputType="textPassword"
+        android:id="@+id/registration_password"
         android:background="#FFF"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Re-password: "
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Re-password: "
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Passwords don't matched!"
+            android:textColor="#ff0000"
+            android:visibility="invisible"
+            android:textSize="15dp"
+            android:id="@+id/message_error_re_password"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:inputType="textPassword"
+        android:id="@+id/registration_re_password"
         android:background="#FFF"/>
 
     <Button
@@ -58,6 +118,7 @@
         android:text="Create"
         android:background="#FF0485C1"
         android:layout_marginTop="20dp"
+        android:id="@+id/registration_submit_button"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONObject;
+import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Khaled on 11/22/2016.
@@ -31,8 +32,8 @@ public class LoginFragment extends Fragment {
     final String Tag = "Login Fragment ";
     EditText editTextEmail;
     EditText editTextPassword;
-    Button loginButton;
-    TextView createTextView;
+    Button buttonLogin;
+    TextView textViewCreateAccount;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,17 +42,18 @@ public class LoginFragment extends Fragment {
         editTextEmail = (EditText) rootView.findViewById(R.id.editText_email);
         editTextPassword = (EditText) rootView.findViewById(R.id.editText_password);
 
-        loginButton = (Button) rootView.findViewById(R.id.button_login);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        buttonLogin = (Button) rootView.findViewById(R.id.button_login);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Login", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Login", Toast.LENGTH_LONG).show();
+                //startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
                 startLogin();
             }
         });
 
-        createTextView = (TextView) rootView.findViewById(R.id.textView_create);
-        createTextView.setOnClickListener(new View.OnClickListener() {
+        textViewCreateAccount = (TextView) rootView.findViewById(R.id.textView_create);
+        textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Creation", Toast.LENGTH_LONG).show();
@@ -66,35 +68,60 @@ public class LoginFragment extends Fragment {
 
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Login...","Please wait...",false,false);
 
-        String stringEmail = editTextEmail.getText().toString();
+        /*String stringEmail = editTextEmail.getText().toString();
         String stringPassword = editTextPassword.getText().toString();
+        if(!isValidEmail(stringEmail)){
+            loading.dismiss();
+            Toast.makeText(getActivity(),"Invalid Email ", Toast.LENGTH_LONG).show();
+            return;
+        }
         HashMap<String, String> hashMapUser = new HashMap<String, String >();
         hashMapUser.put("e_mail", stringEmail);
         hashMapUser.put("password", stringPassword);
+        */
 
+        final HashMap<String, String> input = new HashMap<String, String>();
+        input.put("input", "3");
         RequestQueue queue = MySingletonForRequestQueue.getInstance(getActivity()).getRequestQueue();
 
-        String url ="http://api.themoviedb.org/3/movie/popular?api_key=9ae53f3101bef7b8b4015690ea82b38c";
+        String url ="http://backgroundfree.pe.hu/api/test";
+        //Toast.makeText(getActivity(), new JSONObject(input).toString(), Toast.LENGTH_LONG).show();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(hashMapUser), new Response.Listener<JSONObject>() {
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 loading.dismiss();
-                Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_LONG).show();
-
-                startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+                Toast.makeText(getActivity(), "On Res " + response.toString(), Toast.LENGTH_LONG).show();
+                Log.d(Tag, response.toString());
+                //startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
+                Log.d(Tag, error.toString());
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
-        });
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Toast.makeText(getActivity(), "in getParams", Toast.LENGTH_LONG).show();
+                return input;
+            }
+        };
 
         queue.add(jsonObjectRequest);
 
 
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 
 }
