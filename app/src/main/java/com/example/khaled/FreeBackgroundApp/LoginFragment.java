@@ -14,15 +14,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Khaled on 11/22/2016.
@@ -48,7 +48,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(getActivity(), "Login", Toast.LENGTH_LONG).show();
                 //startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
-                startLogin();
+                //startLogin();
+                startActivity(new Intent(getActivity(),UploadToServerActivity.class));
             }
         });
 
@@ -81,15 +82,17 @@ public class LoginFragment extends Fragment {
         */
 
         final HashMap<String, String> input = new HashMap<String, String>();
-        input.put("input", "3");
+        input.put("email", editTextEmail.getText().toString());
+        input.put("password", editTextPassword.getText().toString());
         RequestQueue queue = MySingletonForRequestQueue.getInstance(getActivity()).getRequestQueue();
 
-        String url ="http://backgroundfree.pe.hu/api/test";
+        String url ="http://backgroundfree.pe.hu/api/login";
         //Toast.makeText(getActivity(), new JSONObject(input).toString(), Toast.LENGTH_LONG).show();
 
-        StringRequest jsonObjectRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        Toast.makeText(getActivity(), "KH " + new JSONObject(input).toString(), Toast.LENGTH_LONG).show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(input), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
                 loading.dismiss();
                 Toast.makeText(getActivity(), "On Res " + response.toString(), Toast.LENGTH_LONG).show();
                 Log.d(Tag, response.toString());
@@ -100,15 +103,15 @@ public class LoginFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Log.d(Tag, error.toString());
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Err " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         }) {
-            @Override
+            /*@Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Toast.makeText(getActivity(), "in getParams", Toast.LENGTH_LONG).show();
                 return input;
-            }
+            }*/
         };
 
         queue.add(jsonObjectRequest);

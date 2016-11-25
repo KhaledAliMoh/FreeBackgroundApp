@@ -82,7 +82,7 @@ public class RegistrationFragment extends Fragment {
             textViewEmailError.setVisibility(View.VISIBLE);
         }
 
-        if(stringPassword.length() < 6 || stringPassword == null){
+        if(stringPassword.length() < 8 || stringPassword == null){
             ok = false;
             textViewPasswordError.setVisibility(View.VISIBLE);
         }
@@ -133,7 +133,8 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, error.toString());
+                Toast.makeText(getActivity(),  error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             /*@Override // if you use String Request you must override getParams to send data
@@ -182,6 +183,10 @@ public class RegistrationFragment extends Fragment {
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    void requestMyToken(){
+
     }
 
 }

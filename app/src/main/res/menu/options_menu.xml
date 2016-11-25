@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/change_avatar_item"
+        android:title="Change Profile Image"/>
+
+    <item
+        android:id="@+id/change_username_item"
+        android:title="Change Username"/>
+
+    <item
+        android:id="@+id/change_password_item"
+        android:title="Change Password"/>
+
+    <item
+        android:id="@+id/logout_item"
+        android:title="Logout"/>
+
+
+</menu>
